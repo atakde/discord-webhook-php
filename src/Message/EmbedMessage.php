@@ -2,8 +2,6 @@
 
 namespace Atakde\DiscordWebhook\Message;
 
-use DateTime;
-
 class EmbedMessage extends Message
 {
     private ?string $content = null;

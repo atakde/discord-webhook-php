@@ -36,8 +36,6 @@ class DiscordWebhook
 
     public function send(): bool
     {
-        // var_dump($this->message->toArray());
-        // die;
         try {
             $ch = curl_init($this->webhookUrl);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
