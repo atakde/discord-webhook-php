@@ -1,6 +1,6 @@
 <?php
 
-namespace Atakde\DiscordWebhook;
+namespace Atakde\DiscordWebhook\Exception;
 
 use Exception;
 

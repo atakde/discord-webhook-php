@@ -2,6 +2,7 @@
 
 namespace Atakde\DiscordWebhook;
 
+use Atakde\DiscordWebhook\Exception\InvalidResponseException;
 use Atakde\DiscordWebhook\Message\Message;
 
 /**
@@ -33,8 +34,10 @@ class DiscordWebhook
         $this->webhookUrl = $webhookUrl;
     }
 
-    public function send(): void
+    public function send(): bool
     {
+        // var_dump($this->message->toArray());
+        // die;
         try {
             $ch = curl_init($this->webhookUrl);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -48,12 +51,15 @@ class DiscordWebhook
             $responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             curl_close($ch);
 
-            if ($responseCode != 200) {
-                var_dump($response);
-                throw new InvalidResponseException("Error !!");
+            if ($responseCode >= 200 && $responseCode < 300) {
+                return true;
+            } else {
+                $decodedResponse = json_decode($response, true);
+                throw new InvalidResponseException($decodedResponse["message"] ?? "Error ocurred!", $responseCode);
             }
         } catch (\Exception $e) {
             echo $e->getMessage();
+            return false;
         }
     }
 }

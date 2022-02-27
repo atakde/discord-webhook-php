@@ -2,23 +2,25 @@
 
 namespace Atakde\DiscordWebhook\Message;
 
+use DateTime;
+
 class EmbedMessage extends Message
 {
-    private ?string $content;
-    private ?string $username;
-    private ?string $title;
-    private ?string $description;
-    private ?string $color;
-    private ?string $footerIcon;
-    private ?string $footerText;
-    private ?string $thumbnailUrl;
-    private ?string $url;
-    private ?string $avatarUrl;
-    private ?string $imageUrl;
-    private ?string $timestamp;
-    private ?string $authorName;
-    private ?string $authorUrl;
-    private ?string $authorIcon;
+    private ?string $content = null;
+    private ?string $username = null;
+    private ?string $title  = null;
+    private ?string $description  = null;
+    private ?string $color  = null;
+    private ?string $footerIcon  = null;
+    private ?string $footerText = null;
+    private ?string $thumbnailUrl = null;
+    private ?string $url = null;
+    private ?string $avatarUrl = null;
+    private ?string $imageUrl = null;
+    private ?string $timestamp = null;
+    private ?string $authorName = null;
+    private ?string $authorUrl = null;
+    private ?string $authorIcon = null;
     private array $fields = [];
     private bool $tts = false;
 
