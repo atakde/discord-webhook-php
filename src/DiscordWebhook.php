@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Atakde\DiscordWebhook;
 
 use Atakde\DiscordWebhook\Exception\InvalidResponseException;
