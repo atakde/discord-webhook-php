@@ -2,6 +2,14 @@
 
 A php package for sending message to discord with webhook. Supports both text and embed messages types.
 
+## Installation
+
+Install via composer
+
+```bash 
+composer require atakde/discord-webhook-php
+```
+
 ## Usage
 
 ```php
