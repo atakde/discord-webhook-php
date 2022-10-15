@@ -65,10 +65,10 @@ class EmbedMessage extends Message
     }
 
     /**
-     * @param string|null $color
+     * @param int|null $color
      * @return EmbedMessage
      */
-    public function setColor(?string $color): self
+    public function setColor(?int $color): self
     {
         $this->color = $color;
         return $this;
