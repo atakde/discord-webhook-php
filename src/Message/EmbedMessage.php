@@ -6,8 +6,6 @@ namespace Atakde\DiscordWebhook\Message;
 
 class EmbedMessage extends Message
 {
-    private ?string $content = null;
-    private ?string $username = null;
     private ?string $title  = null;
     private ?string $description  = null;
     private ?string $color  = null;
@@ -15,34 +13,12 @@ class EmbedMessage extends Message
     private ?string $footerText = null;
     private ?string $thumbnailUrl = null;
     private ?string $url = null;
-    private ?string $avatarUrl = null;
     private ?string $imageUrl = null;
     private ?string $timestamp = null;
     private ?string $authorName = null;
     private ?string $authorUrl = null;
     private ?string $authorIcon = null;
     private array $fields = [];
-    private bool $tts = false;
-
-    /**
-     * @param string|null $content
-     * @return EmbedMessage
-     */
-    public function setContent(?string $content): self
-    {
-        $this->content = $content;
-        return $this;
-    }
-
-    /**
-     * @param string|null $username
-     * @return EmbedMessage
-     */
-    public function setUsername(?string $username): self
-    {
-        $this->username = $username;
-        return $this;
-    }
 
     /**
      * @param string|null $title
@@ -115,16 +91,6 @@ class EmbedMessage extends Message
     }
 
     /**
-     * @param string|null $avatarUrl
-     * @return EmbedMessage
-     */
-    public function setAvatarUrl(?string $avatarUrl): self
-    {
-        $this->avatarUrl = $avatarUrl;
-        return $this;
-    }
-
-    /**
      * @param string|null $imageUrl
      * @return EmbedMessage
      */
@@ -181,16 +147,6 @@ class EmbedMessage extends Message
     public function setFields(array $fields): self
     {
         $this->fields = $fields;
-        return $this;
-    }
-
-    /**
-     * @param bool $tts
-     * @return EmbedMessage
-     */
-    public function setTts(bool $tts): self
-    {
-        $this->tts = $tts;
         return $this;
     }
 

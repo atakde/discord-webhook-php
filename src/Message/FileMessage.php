@@ -11,10 +11,6 @@ use SplFileObject;
 class FileMessage extends Message
 {
     private SplFileObject $file;
-    private bool $tts = false;
-    private string $content = '';
-    private ?string $username = null;
-    private ?string $avatarUrl = null;
 
     /**
      * @param SplFileObject $file
@@ -24,48 +20,6 @@ class FileMessage extends Message
     public function setFile(SplFileObject $file): self
     {
         $this->file = $file;
-        return $this;
-    }
-
-    /**
-     * @param bool $tts
-     * @return FileMessage
-     */
-
-    public function setTts(bool $tts): self
-    {
-        $this->tts = $tts;
-        return $this;
-    }
-
-    /**
-     * @param string $content
-     * @return FileMessage
-     */
-
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
-        return $this;
-    }
-
-    /**
-     * @param string|null $username
-     * @return EmbedMessage
-     */
-    public function setUsername(?string $username): self
-    {
-        $this->username = $username;
-        return $this;
-    }
-
-    /**
-     * @param string|null $avatarUrl
-     * @return EmbedMessage
-     */
-    public function setAvatarUrl(?string $avatarUrl): self
-    {
-        $this->avatarUrl = $avatarUrl;
         return $this;
     }
 
