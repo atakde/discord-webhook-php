@@ -36,17 +36,28 @@ class DiscordWebhook
         $this->webhookUrl = $webhookUrl;
     }
 
+    // is multipart/form-data
+    public function isMultipart(): bool
+    {
+        return $this->message->isMultipart();
+    }
+
     public function send(): bool
     {
         try {
             $ch = curl_init($this->webhookUrl);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $this->message->toJson());
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($this->message->toJson())
-            ));
+            // is multipart/form-data
+            if ($this->isMultipart()) {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $this->message->toArray());
+                curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: multipart/form-data']);
+            } else {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $this->message->toJson());
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json',
+                    'Content-Length: ' . strlen($this->message->toJson())
+                ));
+            }
+
             $response = curl_exec($ch);
             $responseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
             curl_close($ch);
