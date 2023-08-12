@@ -13,6 +13,8 @@ class FileMessage extends Message
     private SplFileObject $file;
     private bool $tts = false;
     private string $content = '';
+    private ?string $username = null;
+    private ?string $avatarUrl = null;
 
     /**
      * @param SplFileObject $file
@@ -47,6 +49,26 @@ class FileMessage extends Message
         return $this;
     }
 
+    /**
+     * @param string|null $username
+     * @return EmbedMessage
+     */
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * @param string|null $avatarUrl
+     * @return EmbedMessage
+     */
+    public function setAvatarUrl(?string $avatarUrl): self
+    {
+        $this->avatarUrl = $avatarUrl;
+        return $this;
+    }
+
     public function toJson(): string
     {
         return json_encode($this->toArray());
@@ -58,7 +80,14 @@ class FileMessage extends Message
             'tts' => json_encode($this->tts),
             'content' => $this->content,
             'file' => $this->prepareFile(),
+            'username' => $this->username,
+            'avatar_url' => $this->avatarUrl,
         ];
+
+        // if any value has null value, remove it
+        $data = array_filter($data, function ($value) {
+            return $value !== null;
+        });
 
         return $data;
     }
