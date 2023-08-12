@@ -6,6 +6,7 @@ namespace Atakde\DiscordWebhook;
 
 use Atakde\DiscordWebhook\Exception\InvalidResponseException;
 use Atakde\DiscordWebhook\Message\Message;
+use Exception;
 
 /**
  * DiscordWebhook
@@ -26,6 +27,11 @@ class DiscordWebhook
      */
     private string $webhookUrl;
 
+    /**
+     * @var bool $webhookUrl
+     */
+    private bool $debug = false;
+
     public function __construct(Message $message)
     {
         $this->message = $message;
@@ -40,6 +46,11 @@ class DiscordWebhook
     public function isMultipart(): bool
     {
         return $this->message->isMultipart();
+    }
+
+    public function setDebug(bool $debug): void
+    {
+        $this->debug = $debug;
     }
 
     public function send(): bool
@@ -69,7 +80,10 @@ class DiscordWebhook
                 throw new InvalidResponseException($decodedResponse["message"] ?? "Error ocurred!", $responseCode);
             }
         } catch (\Exception $e) {
-            // susspress exception
+            // suppress exception if debug is false
+            if ($this->debug) {
+                throw $e;
+            }
             return false;
         }
     }
