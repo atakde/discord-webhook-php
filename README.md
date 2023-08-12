@@ -66,3 +66,19 @@ $webhook = new DiscordWebhook($embedMessage);
 $webhook->setWebhookUrl("https://discord.com/api/...");
 $webhook->send();
 ```
+
+## Usage (File Message)
+
+```php
+$messageFactory = new MessageFactory();
+$fileMessage = $messageFactory->create('file');
+$fileMessage->setUsername('Atakde');
+$fileMessage->setContent('Hello World!');
+$fileMessage->setAvatarUrl('https://avatars.githubusercontent.com/u/25267804?v=4');
+$fileMessage->setTts(false);
+$fileMessage->setFileFromURL('https://avatars.githubusercontent.com/u/25267804?v=4');
+
+$webhook = new DiscordWebhook($fileMessage);
+$webhook->setWebhookUrl("https://discord.com/api/...");
+$webhook->send();
+```
