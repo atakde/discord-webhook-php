@@ -69,7 +69,7 @@ class DiscordWebhook
                 throw new InvalidResponseException($decodedResponse["message"] ?? "Error ocurred!", $responseCode);
             }
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            // susspress exception
             return false;
         }
     }
