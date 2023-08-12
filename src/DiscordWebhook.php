@@ -28,7 +28,7 @@ class DiscordWebhook
     private string $webhookUrl;
 
     /**
-     * @var bool $webhookUrl
+     * @var bool $debug
      */
     private bool $debug = false;
 
