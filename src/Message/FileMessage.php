@@ -69,9 +69,12 @@ class FileMessage extends Message
         $mime = $finfo->file($this->file->getRealPath());
         $fileName = $this->file->getFilename();
 
+        // Get the default extension based on mime type
+        $defaultExtension = $this->getDefaultExtension($mime);
+
         // if file name does not contain extension, add it
         if (strpos($fileName, '.') === false) {
-            $fileName .= '.' . (!empty($mime) ? str_replace('image/', '', $mime) : 'jpg');
+            $fileName .= '.' . (!empty($defaultExtension) ? $defaultExtension : 'dat');
         }
 
         return curl_file_create(
@@ -79,6 +82,27 @@ class FileMessage extends Message
             $mime,
             $fileName
         );
+    }
+
+    private function getDefaultExtension($mime): ?string
+    {
+        $mimeToExtensionMap = [
+            'image/jpeg' => 'jpg',
+            'image/png' => 'png',
+            'image/gif' => 'gif',
+            'application/pdf' => 'pdf',
+            'application/msword' => 'doc',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
+            'application/vnd.ms-excel' => 'xls',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'xlsx',
+            'application/vnd.ms-powerpoint' => 'ppt',
+            'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'pptx',
+            'text/plain' => 'txt',
+            'application/json' => 'json',
+            'application/xml' => 'xml',
+        ];
+
+        return $mimeToExtensionMap[$mime] ?? null;
     }
 
     public function isMultiPart(): bool
